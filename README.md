@@ -56,15 +56,114 @@ int main()
       printf("Your five cards:  \n");
       for(i=0; i<5; i++)
       {  
-          
+          suit = getSuit(cardSuit[i]);
+          rank = getRank(cardRank[i]);
+          printf("Card #%d: %c%c \n", i+1, rank, suit);
+       }
+       
+       //These two arrays are used to figure out the value of the player's hand.
+       //However, they must be zeroed out in case the user plays multiple hands.
+       
+       for(i=0; i<4; i++)
+       {
+            suitsinHand[i] = 0;
+       }
+       
+       for(i-0; i<13; i++)
+       {
+          ranksinHand[i]=0;
+       }
+       
+       getFinalHand(cardRank, cardSuit, finalRank, finalSuit, ranksinHand, suitsinHand);
+       
+      printf("Your five final cards:  \n");
+      for(i=0; i<5; i++)
+      {
+        suit=getSuit(finalSuit[i]);
+        rank=getRank(finalRank[i]);
+        printf("Card #%d: %c%c  \n",i+1, rank, suit);
+      }
+      
+      winnings= analyzeHand(ranksinHand,suitsinHand);
+      printf("You won %d! \n",bet*winnings);
+      bank=bank-bet+(bet*winnings);
+      printf("\n Your bakn is now %d.\n",bank);
+      printf(" \n Do you want to play again?");
+      scanf("%c", &stillplay);
+    }while(toupper(stillplay) == 'Y');
+    
+    return;
+    
+    }
+      
+   //print a quick greeting as well as tell the users the value of different winnings hands
+   
+   void printGreeting()
+   {
+      printf(" \t Home of Video Draw Poker Program \n \n");
+      printf("Here are the rules:  \n");
+      printf("You start with 100 credits, and you make a bet from 1 to 5 credits.  \n ");
+      printf("You are dealt 5 cards and then you chooe which cards to keep or discard. You want to make the best possible hand.  \n");
+      printf(" \n Here is the table for winnings(assuming a bet of 1 credit):");
+      printf("\nPair\t\t\t1 credit");
+      printf("\nTwo Pairs\t\t\t2 credits");
+      printf("\nThree of a kind \t\t\t3 credits");
+      printf("\nStraight\t\t\t4 credits");
+      printf("\nFlush\t\t\t5 credits");
+      printf("\nFull House\t\t\t8 credits"); 
+      printf("\nFour of a kind\t\t\t10 credits");
+      printf("\nStraight flush\t\t\t20 credits");
+      printf("\n\n Have Fun!! \n\n");
+   }
+   
+   //Function to deal the first five cards
+   
+   void getFirstHand(int cardRank[], int cardSuit[])
+   {
+    int i,j;
+    int cardDup;
+    
+    for(i=0;i<5;i++)
+    {
+        cardDup = 0;
+   do{
+        //Card rank is one of 13(2-10, J, Q, K, A)
+        cardRank[i]= (rand() % 13);
+        //Card suit is one of 4 (club, diamond, spade, heart)
+        cardSuit[i]= (rand() %4);
+        
+        //loop that ensures that each card is unique 
+        for(j=0;j<i;j++)
+        {
+         if((cardRank[i]== cardRank[j]) && (cardSuit[i] == cardSuit[j]))
+         {
+            cardDup = 1;
+         }
+         }
+         } while(cardDup == 1);
+         }
+         }
+         
+  //function that changes the suit integer value to a character representing the suit
   
+  char getSuit(int suit)
+  { 
+      switch(suit)
+      {
+      
+      case 0: return('c');
+      case 1: return('d');
+      case 2: return('h');
+      case 3: return('s');
+      
+      }
+      }
   
+  //function that changes the rank integer value to a character representing the rank
   
-  
-  
-  
-  
-  
+  char getRank(int rank)
+  {
+    
   
   
   
